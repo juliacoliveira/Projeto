@@ -9,19 +9,28 @@ using namespace std;
 
 int main()
 {
-    sculptor ju(100, 100, 100);
-    ju.setColor(1.0,0, 0, 1.0);
-    ju.putBox(0,5, 0, 5, 0, 5);
-    ju.cutBox(0, 2, 0, 2, 0, 2);
-    ju.setColor(1.0, 1.0,0,1.0);
-    ju.putVoxel(10, 10, 10);
-    ju.cutVoxel(5, 5, 5);
-    ju.setColor(0.0, 1.0,0,1.0);
-    ju.putSphere(20, 20, 20, 10);
-    ju.cutSphere(20, 20, 20, 8);
-    ju.setColor(1.0, 0.0,0.0,1.0);
-    ju.putEllipsoid(40, 40, 40, 10, 5, 4);
-    ju.cutEllipsoid(40, 40, 40, 8, 3, 2);
+    Sculptor ju(100, 100, 100);
+    FiguraGeometrica* figura;
 
-    ju.writeOFF("C:/Users/julia/Downloads/Projeto/Imagem.off"); // Tem que botar o caminho para o arquivo
+    figura = new Sphere(18, 18, 18, 10, 1.0, 0.0, 0.0, 1.0);
+    ju.inserirObjeto(figura);
+
+    figura = new Box (5, 10, 5, 10, 5, 10, 0.0, 1.0, 0.0, 1.0);
+    ju.inserirObjeto(figura);
+
+    figura = new Ellipsoid (30, 30, 30, 6, 10, 14, 0.0, 0.0, 1.0, 1.0);
+    ju.inserirObjeto(figura);
+
+    ju.desenharObjeto(ju);
+
+    figura = new Sphere(18, 18, 18, 8, 1.0, 0.0, 0.0, 1.0);
+    figura->erase(ju);
+
+    figura = new Box (6, 9, 6, 9, 6, 9, 0.0, 1.0, 0.0, 1.0);
+    figura-> erase (ju);
+
+    figura = new Ellipsoid (30, 30, 30, 4, 8, 12, 0.0, 0.0, 1.0, 1.0);
+    figura->erase (ju);
+
+    ju.writeOFF("C:/Users/julia/Desktop/Projeto/Imagem.off"); // Tem que botar o caminho para o arquivo */
 }
