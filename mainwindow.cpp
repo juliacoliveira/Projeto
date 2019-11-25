@@ -15,11 +15,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->widget,
+    connect(this,
             SIGNAL(mouseX(int)),
             ui->lcdX,
             SLOT(display(int))); //usado apenas para desenvolver, pode ser removido
-    connect(ui->widget,
+    connect(this,
             SIGNAL(mouseY(int)),
             ui->lcdY,
             SLOT(display(int))); //usado apenas para desenvolver, pode ser removido
@@ -37,8 +37,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     QBrush brush;
     QPen pen;
-    Dialog d;
-    d.exec();
+
     brush.setColor(QColor(255,255,255));
     brush.setStyle(Qt::SolidPattern);
     pen.setColor(QColor(0,0,0));
@@ -46,6 +45,8 @@ void MainWindow::paintEvent(QPaintEvent *event)
     pen.setStyle(Qt::SolidLine);
     painter.setPen(pen);
     painter.setBrush(brush);
+    Dialog d;
+    d.exec();
     int nx = d.getX();
     int ny = d.getY();
     int contx=0,conty=0;
@@ -68,6 +69,7 @@ void MainWindow::on_pushButton_clicked()
     Dialog d;
     d.exec();
     mysculptor = new Sculptor(d.getX(), d.getY(), d.getZ());
+    ui-> horizontalSlider_ZPlano-> setMaximum(d.getZ());
 }
 
 void MainWindow::on_pushButton_Caixa_clicked()
