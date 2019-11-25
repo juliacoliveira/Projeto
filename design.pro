@@ -13,14 +13,15 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
+        dialog.cpp \
         mainwindow.cpp \
-        plotter.cpp \
         sculptor.cpp
 
 HEADERS  += mainwindow.h \
-    plotter.h \
+    dialog.h \
     sculptor.h \
     voxel.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    dialog.ui
 

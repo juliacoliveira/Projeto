@@ -16,6 +16,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
    Sculptor *mysculptor;
+   void paintEvent(QPaintEvent *event);
 
 public slots:
  void mataTudo();

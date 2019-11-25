@@ -1,17 +1,28 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "dialog.h"
 #include <QWidget>
 #include <QAction>
 #include <QMouseEvent>
 #include <QDebug>
+#include <QPainter>
+#include <QBrush>
+#include <QPen>
+#include <QPaintEvent>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->widget,SIGNAL(mouseX(int)),ui->lcdX,SLOT(display(int))); //usado apenas para desenvolver, pode ser removido
-        connect(ui->widget,SIGNAL(mouseY(int)),ui->lcdY,SLOT(display(int))); //usado apenas para desenvolver, pode ser removido
+    connect(ui->widget,
+            SIGNAL(mouseX(int)),
+            ui->lcdX,
+            SLOT(display(int))); //usado apenas para desenvolver, pode ser removido
+    connect(ui->widget,
+            SIGNAL(mouseY(int)),
+            ui->lcdY,
+            SLOT(display(int))); //usado apenas para desenvolver, pode ser removido
 
 }
 
@@ -20,6 +31,33 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::paintEvent(QPaintEvent *event)
+{
+
+    QPainter painter(this);
+    QBrush brush;
+    QPen pen;
+    Dialog d;
+    d.exec();
+    brush.setColor(QColor(255,255,255));
+    brush.setStyle(Qt::SolidPattern);
+    pen.setColor(QColor(0,0,0));
+    pen.setWidth(1);
+    pen.setStyle(Qt::SolidLine);
+    painter.setPen(pen);
+    painter.setBrush(brush);
+    int nx = d.getX();
+    int ny = d.getY();
+    int contx=0,conty=0;
+    for (int i=1;i<=ny;i++) {
+        contx=0;
+        for (int j=1;j<=nx;j++) {
+            painter.drawRect(contx,conty,width()/nx,height()/ny);
+            contx+=(float)(width()/nx);
+        }
+        conty+=(float)(height()/ny);
+    }
+}
 void MainWindow::mataTudo()
 {
     exit(0);
@@ -27,8 +65,9 @@ void MainWindow::mataTudo()
 
 void MainWindow::on_pushButton_clicked()
 {
-    mysculptor = new Sculptor(100, 100, 100);
-
+    Dialog d;
+    d.exec();
+    mysculptor = new Sculptor(d.getX(), d.getY(), d.getZ());
 }
 
 void MainWindow::on_pushButton_Caixa_clicked()
@@ -105,7 +144,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
   int x, y;
   x = event->x();
   y = event->y();
- qDebug() << x << y;
+// qDebug() << x << y;
 // qDebug() << event->button();
   emit mouseX(x);
   emit mouseY(y);
