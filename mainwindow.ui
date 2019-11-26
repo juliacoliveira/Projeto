@@ -407,7 +407,7 @@
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>270</y>
+      <y>280</y>
       <width>481</width>
       <height>321</height>
      </rect>
@@ -418,7 +418,7 @@
      </font>
     </property>
     <property name="title">
-     <string>PLANO</string>
+     <string>CENTROS</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -647,12 +647,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>406</x>
-     <y>499</y>
+     <x>415</x>
+     <y>598</y>
     </hint>
     <hint type="destinationlabel">
-     <x>550</x>
-     <y>501</y>
+     <x>519</x>
+     <y>600</y>
     </hint>
    </hints>
   </connection>
@@ -855,12 +855,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>325</x>
-     <y>226</y>
+     <x>170</x>
+     <y>376</y>
     </hint>
     <hint type="destinationlabel">
-     <x>492</x>
-     <y>234</y>
+     <x>467</x>
+     <y>382</y>
     </hint>
    </hints>
   </connection>
@@ -871,12 +871,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>353</x>
-     <y>349</y>
+     <x>199</x>
+     <y>479</y>
     </hint>
     <hint type="destinationlabel">
-     <x>492</x>
-     <y>356</y>
+     <x>467</x>
+     <y>484</y>
     </hint>
    </hints>
   </connection>

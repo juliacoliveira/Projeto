@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "sculptor.h"
+#include <QString>
+#include <QFileDialog>
 
 namespace Ui {
 class MainWindow;

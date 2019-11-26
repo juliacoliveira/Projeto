@@ -143,7 +143,7 @@ void Sculptor::cutEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int r
 }
 
 //grava a escultura no formato OFF no arquivo filename
-void Sculptor::writeOFF(char* filename){
+void Sculptor::writeOFF(const char* filename){
     std::ofstream fout;
     int aux2= 0;
     for (int i=0; i<this-> nx; i++){

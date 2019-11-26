@@ -2,13 +2,7 @@
 #include "ui_mainwindow.h"
 #include "dialog.h"
 #include <QWidget>
-#include <QAction>
-#include <QMouseEvent>
-#include <QDebug>
-#include <QPainter>
-#include <QBrush>
-#include <QPen>
-#include <QPaintEvent>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -57,7 +51,7 @@ void MainWindow::on_pushButton_Caixa_clicked()
     int dimzc = ui-> horizontalSlider_ZPlano-> value();
 
     mysculptor->setColor(red,green, blue, 1.0);
-    mysculptor->putBox(dimxc,dimx, dimyc, dimy, dimzc, dimz);
+    mysculptor->putBox(dimxc,dimxc+dimx, dimyc, dimyc+dimy, dimzc, dimzc+dimz);
 }
 
 void MainWindow::on_pushButton_TirarCaixa_clicked()
@@ -68,7 +62,7 @@ void MainWindow::on_pushButton_TirarCaixa_clicked()
     int dimxc = ui-> horizontalSlider_PlanoX -> value();
     int dimyc = ui->  horizontalSlider_PlanoY-> value ();
     int dimzc = ui-> horizontalSlider_ZPlano-> value();
-    mysculptor->cutBox(dimxc, dimx, dimyc, dimy, dimzc, dimz);
+    mysculptor->cutBox(dimxc,dimxc+dimx, dimyc, dimyc+dimy, dimzc, dimzc+dimz);
 }
 
 void MainWindow::on_pushButton_Esfera_clicked()
@@ -140,9 +134,10 @@ void MainWindow::on_pushButton_TirarVoxel_clicked()
 }
 void MainWindow::Salvar()
 {
-    mysculptor->writeOFF("C:/Users/julia/Downloads/Projeto/Imagem.off");
+
+    QString qs = QFileDialog::getSaveFileName();
+        qs=qs+".off";
+       QString command="meshlab "+qs;
+       mysculptor->writeOFF(qs.toStdString().c_str());
+       system(command.toStdString().c_str());
 }
-
-
-
-
