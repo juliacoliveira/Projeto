@@ -140,7 +140,7 @@ void MainWindow::on_pushButton_TirarVoxel_clicked()
 }
 void MainWindow::Salvar()
 {
-    mysculptor->writeOFF("C:/Users/julia/Downloads/Projeto3/Imagem.off");
+    mysculptor->writeOFF("C:/Users/julia/Downloads/Projeto/Imagem.off");
 }
 
 
