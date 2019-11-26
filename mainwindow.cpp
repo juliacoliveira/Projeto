@@ -15,15 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(this,
-            SIGNAL(mouseX(int)),
-            ui->lcdX,
-            SLOT(display(int))); //usado apenas para desenvolver, pode ser removido
-    connect(this,
-            SIGNAL(mouseY(int)),
-            ui->lcdY,
-            SLOT(display(int))); //usado apenas para desenvolver, pode ser removido
-
+   on_pushButton_clicked();
 }
 
 MainWindow::~MainWindow()
@@ -31,34 +23,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::paintEvent(QPaintEvent *event)
-{
-
-    QPainter painter(this);
-    QBrush brush;
-    QPen pen;
-
-    brush.setColor(QColor(255,255,255));
-    brush.setStyle(Qt::SolidPattern);
-    pen.setColor(QColor(0,0,0));
-    pen.setWidth(1);
-    pen.setStyle(Qt::SolidLine);
-    painter.setPen(pen);
-    painter.setBrush(brush);
-    Dialog d;
-    d.exec();
-    int nx = d.getX();
-    int ny = d.getY();
-    int contx=0,conty=0;
-    for (int i=1;i<=ny;i++) {
-        contx=0;
-        for (int j=1;j<=nx;j++) {
-            painter.drawRect(contx,conty,width()/nx,height()/ny);
-            contx+=(float)(width()/nx);
-        }
-        conty+=(float)(height()/ny);
-    }
-}
 void MainWindow::mataTudo()
 {
     exit(0);
@@ -68,23 +32,32 @@ void MainWindow::on_pushButton_clicked()
 {
     Dialog d;
     d.exec();
-    mysculptor = new Sculptor(d.getX(), d.getY(), d.getZ());
-    ui-> horizontalSlider_ZPlano-> setMaximum(d.getZ());
-}
+    int nx = d.getX();
+    int ny = d.getY();
+    int nz = d.getZ();
+    ui-> horizontalSlider_PlanoX-> setMaximum(nx);
+    ui-> horizontalSlider_PlanoY-> setMaximum(ny);
+    ui-> horizontalSlider_ZPlano-> setMaximum(nz);
+    mysculptor = new Sculptor(nx, ny, nz);
 
+}
 void MainWindow::on_pushButton_Caixa_clicked()
 {
     //recebendo os valores dos sliders
     int dimx = ui-> horizontalSlider_DimXCaixa->value();
     int dimy = ui-> horizontalSlider_DimYCaixa->value();
     int dimz = ui-> horizontalSlider_DimZCaixa->value();
+
     int red = ui-> horizontalSlider_RCor -> value();
     int green = ui-> horizontalSlider_GCor -> value();
     int blue = ui-> horizontalSlider_BCor -> value();
 
+    int dimxc = ui->horizontalSlider_PlanoX  -> value();
+    int dimyc = ui->  horizontalSlider_PlanoY-> value ();
     int dimzc = ui-> horizontalSlider_ZPlano-> value();
+
     mysculptor->setColor(red,green, blue, 1.0);
-    mysculptor->putBox(0,dimx, 0, dimy, dimzc, dimz);
+    mysculptor->putBox(dimxc,dimx, dimyc, dimy, dimzc, dimz);
 }
 
 void MainWindow::on_pushButton_TirarCaixa_clicked()
@@ -92,8 +65,10 @@ void MainWindow::on_pushButton_TirarCaixa_clicked()
     int dimx = ui-> horizontalSlider_DimXCaixa->value();
     int dimy = ui-> horizontalSlider_DimYCaixa->value();
     int dimz = ui-> horizontalSlider_DimZCaixa->value();
+    int dimxc = ui-> horizontalSlider_PlanoX -> value();
+    int dimyc = ui->  horizontalSlider_PlanoY-> value ();
     int dimzc = ui-> horizontalSlider_ZPlano-> value();
-    mysculptor->cutBox(0, dimx, 0, dimy, dimzc, dimz);
+    mysculptor->cutBox(dimxc, dimx, dimyc, dimy, dimzc, dimz);
 }
 
 void MainWindow::on_pushButton_Esfera_clicked()
@@ -102,18 +77,22 @@ void MainWindow::on_pushButton_Esfera_clicked()
     int red = ui-> horizontalSlider_RCor -> value();
     int green = ui-> horizontalSlider_GCor -> value();
     int blue = ui-> horizontalSlider_BCor -> value();
-    int z = ui-> horizontalSlider_ZPlano-> value();
+    int xc = ui-> horizontalSlider_PlanoX -> value();
+    int yc = ui->  horizontalSlider_PlanoY-> value ();
+    int zc = ui-> horizontalSlider_ZPlano-> value();
 
     mysculptor->setColor(red,green, blue, 1.0);
-    mysculptor->putSphere(20, 20, z, raio);
+    mysculptor->putSphere(xc, yc, zc, raio);
 }
 
 void MainWindow::on_pushButton_TirarEsfera_clicked()
 {
     int raio = ui-> horizontalSlider_REsfera -> value();
+    int x = ui-> horizontalSlider_PlanoX -> value();
+    int y = ui->  horizontalSlider_PlanoY-> value ();
     int z = ui-> horizontalSlider_ZPlano-> value();
 
-    mysculptor->cutSphere(20, 20, z, raio);
+    mysculptor->cutSphere(x, y, z, raio);
 }
 
 void MainWindow::on_pushButton_Elipse_clicked()
@@ -125,10 +104,12 @@ void MainWindow::on_pushButton_Elipse_clicked()
     int green = ui-> horizontalSlider_GCor -> value();
     int blue = ui-> horizontalSlider_BCor -> value();
 
+    int x = ui-> horizontalSlider_PlanoX -> value();
+    int y = ui->  horizontalSlider_PlanoY-> value ();
     int z = ui-> horizontalSlider_ZPlano-> value();
 
     mysculptor->setColor(red,green, blue, 1.0);
-    mysculptor->putEllipsoid(40, 40, z, rx, ry, rz);
+    mysculptor->putEllipsoid(x, y, z, rx, ry, rz);
 }
 
 void MainWindow::on_pushButton_TirarElipse_clicked()
@@ -136,29 +117,32 @@ void MainWindow::on_pushButton_TirarElipse_clicked()
     int rx = ui-> horizontalSlider_RxElipse -> value() ;
     int ry = ui-> horizontalSlider_RyElipse -> value();
     int rz = ui-> horizontalSlider_RzElipse -> value ();
+
+    int x = ui-> horizontalSlider_PlanoX -> value();
+    int y = ui->  horizontalSlider_PlanoY-> value ();
     int z = ui-> horizontalSlider_ZPlano-> value();
 
-    mysculptor->cutEllipsoid(40, 40, z, rx, ry, rz);
+    mysculptor->cutEllipsoid(x, y, z, rx, ry, rz);
 }
-
-void MainWindow::mousePressEvent(QMouseEvent *event)
+void MainWindow::on_pushButton_Voxel_clicked()
 {
-  int x, y;
-  x = event->x();
-  y = event->y();
-// qDebug() << x << y;
-// qDebug() << event->button();
-  emit mouseX(x);
-  emit mouseY(y);
+    int xc = ui-> horizontalSlider_PlanoX-> value();
+    int yc = ui-> horizontalSlider_PlanoY-> value();
+    int zc = ui-> horizontalSlider_ZPlano-> value();
+    mysculptor-> putVoxel(xc, yc, zc);
 }
-
-void MainWindow::mouseMoveEvent(QMouseEvent *event)
+void MainWindow::on_pushButton_TirarVoxel_clicked()
 {
-  emit mouseX(event->x());
-  emit mouseY(event->y());
+    int xc = ui-> horizontalSlider_PlanoX-> value();
+    int yc = ui-> horizontalSlider_PlanoY-> value();
+    int zc = ui-> horizontalSlider_ZPlano-> value();
+    mysculptor-> cutVoxel(xc, yc, zc);
 }
-
 void MainWindow::Salvar()
 {
     mysculptor->writeOFF("C:/Users/julia/Downloads/Projeto3/Imagem.off");
 }
+
+
+
+

@@ -16,12 +16,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
    Sculptor *mysculptor;
-   void paintEvent(QPaintEvent *event);
 
 public slots:
  void mataTudo();
- void mousePressEvent(QMouseEvent *event);
- void mouseMoveEvent(QMouseEvent *event);
 
 signals:
   void mouseX(int);
@@ -42,11 +39,13 @@ private slots:
 
  void on_pushButton_TirarElipse_clicked();
 
- void Salvar();
+ void on_pushButton_Voxel_clicked();
 
+ void on_pushButton_TirarVoxel_clicked();
+
+ void Salvar();
 private:
     Ui::MainWindow *ui;
-
 };
 
 #endif // MAINWINDOW_H
