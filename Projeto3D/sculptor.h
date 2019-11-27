@@ -3,7 +3,10 @@
 #include "voxel.h"
 
 //Julia C C O
-
+/**
+ * @brief The Sculptor class
+ * Possui as funções necessárias para a criação das esculturas.
+ */
 class Sculptor
 {
 protected:
