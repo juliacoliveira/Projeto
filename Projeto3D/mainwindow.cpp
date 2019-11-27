@@ -135,9 +135,9 @@ void MainWindow::on_pushButton_TirarVoxel_clicked()
 void MainWindow::Salvar()
 {
 
-    QString qs = QFileDialog::getSaveFileName();
-        qs=qs+".off";
-       QString command="meshlab "+qs;
+       QString qs = QFileDialog::getSaveFileName();
+       qs=qs+".off";
+       //QString command="meshlab "+qs;
        mysculptor->writeOFF(qs.toStdString().c_str());
-       system(command.toStdString().c_str());
+       //system(command.toStdString().c_str());
 }
