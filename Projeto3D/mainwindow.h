@@ -28,10 +28,6 @@ public:
 public slots:
  void mataTudo();
 
-signals:
-  void mouseX(int);
-  void mouseY(int);
-
 private slots:
  void on_pushButton_clicked();
 

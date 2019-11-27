@@ -59,18 +59,22 @@ void MainWindow::on_pushButton_TirarCaixa_clicked()
     int dimx = ui-> horizontalSlider_DimXCaixa->value();
     int dimy = ui-> horizontalSlider_DimYCaixa->value();
     int dimz = ui-> horizontalSlider_DimZCaixa->value();
+
     int dimxc = ui-> horizontalSlider_PlanoX -> value();
     int dimyc = ui->  horizontalSlider_PlanoY-> value ();
     int dimzc = ui-> horizontalSlider_ZPlano-> value();
+
     mysculptor->cutBox(dimxc,dimxc+dimx, dimyc, dimyc+dimy, dimzc, dimzc+dimz);
 }
 
 void MainWindow::on_pushButton_Esfera_clicked()
 {
     int raio = ui-> horizontalSlider_REsfera -> value();
+
     int red = ui-> horizontalSlider_RCor -> value();
     int green = ui-> horizontalSlider_GCor -> value();
     int blue = ui-> horizontalSlider_BCor -> value();
+
     int xc = ui-> horizontalSlider_PlanoX -> value();
     int yc = ui->  horizontalSlider_PlanoY-> value ();
     int zc = ui-> horizontalSlider_ZPlano-> value();
