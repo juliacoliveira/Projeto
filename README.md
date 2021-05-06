@@ -3,7 +3,7 @@
 
 (EN) Creation of an 3D image by Júlia Costa Corrêa de Oliveira. Designed for the Advanced Programming course at UFRN.
 
-# Roteiro de utilização
+# Roteiro de utilização/Guide
 
 (PT) Ao compilar o código, será aberta uma janela que terá como finalidade definir o tamanho da matriz que deseja-se criar. 
 Essa janela pode ser vista na imagem abaixo:
